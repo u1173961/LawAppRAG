@@ -123,7 +123,12 @@ def call_lm(messages, max_tokens=1000, temperature=0.2):
         "presence_penalty": 0.1,
         "frequency_penalty": 0.3,
     }
-    r = requests.post(f"{LMSTUDIO_BASE}/chat/completions", json=payload, timeout=300)
+    try:
+        r = requests.post(f"{LMSTUDIO_BASE}/chat/completions", json=payload, timeout=300)
+    except Exception as e:
+        print("Error: failed to connect to LLM at", LMSTUDIO_BASE, '-', str(e))
+        exit()
+
     print(f"{timestamp()} got response from lm")
     if not r.ok:
         print("LM Studio error status:", r.status_code)
