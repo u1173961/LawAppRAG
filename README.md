@@ -1,6 +1,6 @@
 # LawAppRAG
 
-Local retrieval-augmented generation experiments for UK criminal law information.
+Local retrieval-augmented generation prototype for UK criminal law information.
 
 The project ingests public legal and justice-system sources into JSON files, builds a FAISS vector index over those sources, and uses a local LM Studio chat-completions endpoint to answer questions with retrieved citations.
 
