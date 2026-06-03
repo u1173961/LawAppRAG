@@ -4,6 +4,7 @@ import json
 import time
 import hashlib
 import datetime
+from pathlib import Path
 from urllib.parse import urlparse, urljoin
 from collections import deque
 
@@ -27,6 +28,7 @@ HEADERS = {
 
 TIMEOUT = 40
 SLEEP_BETWEEN = 0.5  # be polite
+BASE_DIR = Path(__file__).resolve().parent
 
 VALID_JURISDICTIONS = {"england_wales", "scotland", "northern_ireland", "uk_wide"}
 
@@ -232,9 +234,9 @@ def extract_text_from_html(html_bytes: bytes, url: str) -> tuple[str, str | None
     text = soup.get_text("\n")
     return clean_text(text), title
 
-def read_urls_file(path: str) -> list[tuple[str, str]]:
+def read_urls_file(path: Path) -> list[tuple[str, str]]:
     items: list[tuple[str, str]] = []
-    with open(path, "r", encoding="utf-8") as f:
+    with path.open("r", encoding="utf-8") as f:
         for raw in f:
             line = raw.strip()
             if not line or line.startswith("#"):
@@ -254,13 +256,17 @@ def read_urls_file(path: str) -> list[tuple[str, str]]:
             items.append((j, url))
     return items
 
-def save_doc(out_dir: str, doc: dict) -> str:
-    os.makedirs(out_dir, exist_ok=True)
+def save_doc(out_dir: Path, doc: dict) -> Path:
+    out_dir.mkdir(parents=True, exist_ok=True)
     filename = f"{doc['id']}_{slugify(doc['url'])}.json"
-    path = os.path.join(out_dir, filename)
-    with open(path, "w", encoding="utf-8") as f:
+    path = out_dir / filename
+    with path.open("w", encoding="utf-8") as f:
         json.dump(doc, f, ensure_ascii=False, indent=2)
     return path
+
+
+def relative_to_base(path: Path) -> str:
+    return str(path.relative_to(BASE_DIR))
 
 def canonicalize_url(url: str) -> str:
     u = url.strip()
@@ -352,8 +358,8 @@ def split_legal_text_into_sections(
 
 
 def main():
-    urls_path = "urls.txt"
-    out_base = "sources"
+    urls_path = BASE_DIR / "urls.txt"
+    out_base = BASE_DIR / "sources"
     manifest = []
 
     seed_items = read_urls_file(urls_path)
@@ -376,7 +382,7 @@ def main():
             retrieved_at = datetime.datetime.utcnow().replace(microsecond=0).isoformat() + "Z"
 
             pdf = is_pdf_url(url, content_type)
-            out_dir = os.path.join(out_base, jurisdiction)
+            out_dir = out_base / jurisdiction
 
             # Minimal metadata (Tip 2)
             source_org = infer_source_org(url)
@@ -405,7 +411,7 @@ def main():
                         "chunk_index": i,
                     }
                     path = save_doc(out_dir, doc)
-                    manifest.append({"jurisdiction": jurisdiction, "url": url, "file": path})
+                    manifest.append({"jurisdiction": jurisdiction, "url": url, "file": relative_to_base(path)})
                 print(f"  ✅ Saved {len(sections)} PDF section(s)")
 
             else:
@@ -456,7 +462,7 @@ def main():
                         "topic": topic,
                     }
                     path = save_doc(out_dir, doc)
-                    manifest.append({"jurisdiction": jurisdiction, "url": url, "file": path})
+                    manifest.append({"jurisdiction": jurisdiction, "url": url, "file": relative_to_base(path)})
                     print(f"  ✅ Saved: {path}")
 
         except Exception as e:
@@ -464,9 +470,9 @@ def main():
 
         time.sleep(SLEEP_BETWEEN)
 
-    os.makedirs(out_base, exist_ok=True)
-    manifest_path = os.path.join(out_base, "manifest.json")
-    with open(manifest_path, "w", encoding="utf-8") as f:
+    out_base.mkdir(exist_ok=True)
+    manifest_path = out_base / "manifest.json"
+    with manifest_path.open("w", encoding="utf-8") as f:
         json.dump(manifest, f, ensure_ascii=False, indent=2)
 
     print(f"\nDone. Manifest written to {manifest_path}")

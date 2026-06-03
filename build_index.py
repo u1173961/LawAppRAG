@@ -1,19 +1,29 @@
-import os, json, glob
+import hashlib
+import json
+from pathlib import Path
+
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
 
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-OUT_DIR = "rag_index"
+BASE_DIR = Path(__file__).resolve().parent
+SOURCES_DIR = BASE_DIR / "sources"
+OUT_DIR = BASE_DIR / "rag_index"
 
-def load_json_docs(base="sources"):
+
+def stable_id(s: str) -> str:
+    return hashlib.sha256(s.encode("utf-8")).hexdigest()[:12]
+
+
+def load_json_docs(base: Path = SOURCES_DIR):
     docs = []
-    for path in glob.glob(os.path.join(base, "**/*.json"), recursive=True):
-        if os.path.basename(path) == "manifest.json":
+    for path in base.rglob("*.json"):
+        if path.name == "manifest.json":
             continue
 
         print(f"load_json_docs(): {path}")
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             data = json.load(f)
 
         # Case 1: single document (dict)
@@ -38,10 +48,12 @@ def load_json_docs(base="sources"):
 
 
 def main():
-    os.makedirs(OUT_DIR, exist_ok=True)
+    OUT_DIR.mkdir(exist_ok=True)
 
     docs = load_json_docs()
     print(f"Loaded {len(docs)} docs")
+    if not docs:
+        raise SystemExit(f"No source documents found in {SOURCES_DIR}")
 
     embedder = SentenceTransformer(EMBED_MODEL)
 
@@ -52,11 +64,12 @@ def main():
     index = faiss.IndexFlatIP(embs.shape[1])  # cosine via normalized + inner product
     index.add(embs)
 
-    faiss.write_index(index, os.path.join(OUT_DIR, "faiss.index"))
+    faiss.write_index(index, str(OUT_DIR / "faiss.index"))
 
-    with open(os.path.join(OUT_DIR, "docs.jsonl"), "w", encoding="utf-8") as f:
+    with (OUT_DIR / "docs.jsonl").open("w", encoding="utf-8") as f:
         for d in docs:
             f.write(json.dumps({
+                "id": d.get("id") or stable_id(f"{d.get('url','')}#{d.get('chunk_index','')}"),
                 "title": d.get("title",""),
                 "url": d.get("url",""),
                 "jurisdiction": d.get("jurisdiction","uk_wide"),

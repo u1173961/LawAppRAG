@@ -1,45 +1,63 @@
-import json, os
+from dataclasses import dataclass
+from datetime import datetime
+import json
+from pathlib import Path
+import re
+
 import numpy as np
 import faiss
 import requests
-import re
 from sentence_transformers import SentenceTransformer
-from datetime import datetime
 
 LMSTUDIO_BASE = "http://localhost:1234/v1"
 LM_MODEL_NAME = "qwen2.5-7b-instruct-1m"
 #LM_MODEL_NAME = "qwen-3-14b-instruct"
 #LM_MODEL_NAME = "labonne_qwen3-14b-abliterated"
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
-INDEX_DIR = "rag_index"
+BASE_DIR = Path(__file__).resolve().parent
+INDEX_DIR = BASE_DIR / "rag_index"
 EXCERPT_CHARS = 1000
 
-embedder = SentenceTransformer(EMBED_MODEL)
-index = faiss.read_index(os.path.join(INDEX_DIR, "faiss.index"))
 
-print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} loading sources...")
-docs = []
-with open(os.path.join(INDEX_DIR, "docs.jsonl"), "r", encoding="utf-8") as f:
-    for line in f:
-        docs.append(json.loads(line))
+@dataclass(frozen=True)
+class RagResources:
+    embedder: SentenceTransformer
+    index: faiss.Index
+    docs: list[dict]
 
-print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} finished loading sources")
 
-index = faiss.read_index(os.path.join(INDEX_DIR, "faiss.index"))
+def timestamp() -> str:
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-docs = []
-with open(os.path.join(INDEX_DIR, "docs.jsonl"), "r", encoding="utf-8") as f:
-    for line in f:
-        docs.append(json.loads(line))
 
-# --- NEW: sanity check ---
-n_index = index.ntotal
-n_docs = len(docs)
-if n_index != n_docs:
-    raise RuntimeError(
-        f"Index mismatch: faiss.index has {n_index} vectors but docs.jsonl has {n_docs} rows. "
-        "Run a full rebuild (build_index.py) or re-sync docs.jsonl to match the index."
-    )
+def load_docs() -> list[dict]:
+    docs_path = INDEX_DIR / "docs.jsonl"
+    print(f"{timestamp()} loading sources...")
+    with docs_path.open("r", encoding="utf-8") as f:
+        docs = [json.loads(line) for line in f]
+    print(f"{timestamp()} finished loading sources")
+    return docs
+
+
+def load_resources() -> RagResources:
+    index_path = INDEX_DIR / "faiss.index"
+    docs_path = INDEX_DIR / "docs.jsonl"
+    if not index_path.exists() or not docs_path.exists():
+        raise SystemExit("No index found. Run `python3 build_index.py` first.")
+
+    embedder = SentenceTransformer(EMBED_MODEL)
+    index = faiss.read_index(str(index_path))
+    docs = load_docs()
+
+    n_index = index.ntotal
+    n_docs = len(docs)
+    if n_index != n_docs:
+        raise RuntimeError(
+            f"Index mismatch: faiss.index has {n_index} vectors but docs.jsonl has {n_docs} rows. "
+            "Run a full rebuild (build_index.py) or re-sync docs.jsonl to match the index."
+        )
+
+    return RagResources(embedder=embedder, index=index, docs=docs)
 
 
 def strip_think(text: str) -> str:
@@ -58,14 +76,21 @@ def infer_jurisdiction_hint(q: str) -> str | None:
         return "england_wales"
     return None
 
-def retrieve(query: str, k: int = 4, jurisdiction_hint: str | None = None):
-    q_emb = embedder.encode([query], normalize_embeddings=True)
+def retrieve(
+    query: str,
+    resources: RagResources,
+    k: int = 4,
+    jurisdiction_hint: str | None = None,
+):
+    q_emb = resources.embedder.encode([query], normalize_embeddings=True)
     q_emb = np.array(q_emb, dtype=np.float32)
-    scores, ids = index.search(q_emb, k * 3)
+    scores, ids = resources.index.search(q_emb, k * 3)
 
     results = []
     for score, idx in zip(scores[0], ids[0]):
-        d = docs[int(idx)]
+        if idx < 0:
+            continue
+        d = resources.docs[int(idx)]
         j = d.get("jurisdiction", "uk_wide")
         if jurisdiction_hint and j not in (jurisdiction_hint, "uk_wide"):
             continue
@@ -88,7 +113,7 @@ citations is an array of URLs from the retrieved sources.
 
 
 def call_lm(messages, max_tokens=1000, temperature=0.2):
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} calling lm")
+    print(f"{timestamp()} calling lm")
     payload = {
         "model": LM_MODEL_NAME,
         "messages": messages,
@@ -99,7 +124,7 @@ def call_lm(messages, max_tokens=1000, temperature=0.2):
         "frequency_penalty": 0.3,
     }
     r = requests.post(f"{LMSTUDIO_BASE}/chat/completions", json=payload, timeout=300)
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} got response from lm")
+    print(f"{timestamp()} got response from lm")
     if not r.ok:
         print("LM Studio error status:", r.status_code)
         try:
@@ -126,12 +151,12 @@ def infer_topic_hint(q: str) -> str | None:
         return "disclosure"
     return None
 
-def answer(question: str):
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} inferring jurisdiction")
+def answer(question: str, resources: RagResources):
+    print(f"{timestamp()} inferring jurisdiction")
     j_hint = infer_jurisdiction_hint(question)
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} inferred jurisdiction")
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} searching sources")
-    hits = retrieve(question, k=4, jurisdiction_hint=j_hint)
+    print(f"{timestamp()} inferred jurisdiction")
+    print(f"{timestamp()} searching sources")
+    hits = retrieve(question, resources, k=4, jurisdiction_hint=j_hint)
     t_hint = infer_topic_hint(question)
     if t_hint:
         hits.sort(key=lambda x: (t_hint in (x[1].get("topic","")), x[0]), reverse=True)
@@ -143,7 +168,6 @@ def answer(question: str):
     print("--- END DEBUG ---\n")
 
     source_pack = []
-    sources_meta = []
     
     for score, d in hits:
         excerpt = (d.get("text","") or "")
@@ -155,13 +179,6 @@ def answer(question: str):
             f"TOPIC: {d.get('topic','')}\n"
             f"EXCERPT:\n{excerpt}\n"
         )
-        sources_meta.append({
-            "title": d.get("title",""),
-            "url": d.get("url",""),
-            "jurisdiction": d.get("jurisdiction",""),
-            "source_org": d.get("source_org",""),
-            "topic": d.get("topic",""),
-        })
 
     messages = [
         {"role": "system", "content": SYSTEM},
@@ -174,7 +191,7 @@ def answer(question: str):
         }
     ]
     
-    print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} compiled sources")
+    print(f"{timestamp()} compiled sources")
 
     out = call_lm(messages)
     if looks_non_english(out):
@@ -184,13 +201,16 @@ def answer(question: str):
             {"role": "user", "content": "Restate your previous answer in English (UK) only. Output JSON only.\n\n" + out}
         ])
 
-    # Optional: attempt to ensure sources list includes what we retrieved
-    # (If the model omits sources, you can post-process, but keep it simple for now.)
     return out
 
-if __name__ == "__main__":
+def main():
+    resources = load_resources()
     while True:
         q = input("\nQuestion (blank to quit): ").strip()
         if not q:
             break
-        print(answer(q))
+        print(answer(q, resources))
+
+
+if __name__ == "__main__":
+    main()

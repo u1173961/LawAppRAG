@@ -14,7 +14,6 @@ This is a legal information tool, not a legal advice tool. Outputs should be tre
 ├── ingest_sources.py    # fetches URLs from urls.txt into sources
 ├── rag_chat.py          # interactive RAG chat using LM Studio
 ├── update_index.py      # appends newly ingested sources to an existing index
-├── uk.py                # earlier standalone RAG/chat experiment
 ├── urls.txt             # seed URLs, optionally prefixed by jurisdiction
 ├── sources/             # ingested JSON source documents
 └── rag_index/           # FAISS index and docs.jsonl metadata
@@ -22,10 +21,10 @@ This is a legal information tool, not a legal advice tool. Outputs should be tre
 
 ## Requirements
 
-Python 3 is required. The scripts currently depend on:
+Python 3 is required. Install the Python dependencies with:
 
 ```bash
-pip install numpy faiss-cpu sentence-transformers requests trafilatura beautifulsoup4 lxml pypdf
+pip install -r requirements.txt
 ```
 
 `rag_chat.py` expects LM Studio or another OpenAI-compatible local server at:
@@ -84,6 +83,8 @@ Lines without a jurisdiction default to `uk_wide`.
 
 ## Index Notes
 
+The `sources/` directory is intentionally kept in this repository as a sample corpus (as are contents of urls.txt) so the project is usable without starting from an empty ingest run. You can add to it with `ingest_sources.py`, then update or rebuild the index.
+
 `build_index.py` writes:
 
 ```text
@@ -105,4 +106,3 @@ The chat prompt is intentionally framed as public-facing UK criminal legal infor
 - ask clarifying questions when jurisdiction matters
 - ground claims in retrieved sources
 - return citations for source checking
-

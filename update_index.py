@@ -1,32 +1,38 @@
-import os, json, glob
+import hashlib
+import json
+from pathlib import Path
+
 import numpy as np
 import faiss
-import hashlib
 from sentence_transformers import SentenceTransformer
 
-INDEX_DIR = "rag_index"
-SOURCES_DIR = "sources"
+BASE_DIR = Path(__file__).resolve().parent
+INDEX_DIR = BASE_DIR / "rag_index"
+SOURCES_DIR = BASE_DIR / "sources"
 EMBED_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
+
 
 def stable_id(s: str) -> str:
     return hashlib.sha256(s.encode("utf-8")).hexdigest()[:12]
 
+
 def load_existing_docs():
     docs = []
-    path = os.path.join(INDEX_DIR, "docs.jsonl")
-    if not os.path.exists(path):
+    path = INDEX_DIR / "docs.jsonl"
+    if not path.exists():
         return docs
-    with open(path, "r", encoding="utf-8") as f:
+    with path.open("r", encoding="utf-8") as f:
         for line in f:
             docs.append(json.loads(line))
     return docs
 
+
 def load_new_docs(existing_ids: set):
     new_docs = []
-    for path in glob.glob(os.path.join(SOURCES_DIR, "**/*.json"), recursive=True):
-        if os.path.basename(path) == "manifest.json":
+    for path in SOURCES_DIR.rglob("*.json"):
+        if path.name == "manifest.json":
             continue
-        with open(path, "r", encoding="utf-8") as f:
+        with path.open("r", encoding="utf-8") as f:
             data = json.load(f)
 
         items = data if isinstance(data, list) else [data]
@@ -41,17 +47,24 @@ def load_new_docs(existing_ids: set):
             new_docs.append(d)
     return new_docs
 
+
 def main():
-    os.makedirs(INDEX_DIR, exist_ok=True)
+    INDEX_DIR.mkdir(exist_ok=True)
+    index_path = INDEX_DIR / "faiss.index"
+    docs_path = INDEX_DIR / "docs.jsonl"
+
+    if not index_path.exists() or not docs_path.exists():
+        raise SystemExit(
+            "No existing index found. Run `python3 build_index.py` before using update_index.py."
+        )
 
     print("Loading existing index + docs...")
-    index = faiss.read_index(os.path.join(INDEX_DIR, "faiss.index"))
+    index = faiss.read_index(str(index_path))
     existing_docs = load_existing_docs()
     existing_ids = {
         d.get("id") or stable_id(f"{d.get('url','')}#{d.get('chunk_index','')}")
         for d in existing_docs
     }
-
 
     print(f"Existing docs: {len(existing_docs)}")
 
@@ -70,9 +83,9 @@ def main():
 
     index.add(embs)
 
-    faiss.write_index(index, os.path.join(INDEX_DIR, "faiss.index"))
+    faiss.write_index(index, str(index_path))
 
-    with open(os.path.join(INDEX_DIR, "docs.jsonl"), "a", encoding="utf-8") as f:
+    with docs_path.open("a", encoding="utf-8") as f:
         for d in new_docs:
             f.write(json.dumps({
                 "id": d.get("id") or stable_id(f"{d.get('url','')}#{d.get('chunk_index','')}"),
@@ -85,8 +98,8 @@ def main():
                 "text": d.get("text",""),
             }, ensure_ascii=False) + "\n")
 
-
     print("Index updated successfully.")
+
 
 if __name__ == "__main__":
     main()
