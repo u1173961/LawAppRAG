@@ -3,7 +3,7 @@
   "title": "pace-codes-e-and-f-2018.pdf — section 36",
   "url": "https://assets.publishing.service.gov.uk/media/5f1e7e24d3bf7f5968d37de1/pace-codes-e-and-f-2018.pdf",
   "jurisdiction": "england_wales",
-  "retrieved_at": "2026-02-03T12:57:09Z",
+  "retrieved_at": "2026-06-03T13:12:31Z",
   "content_type": "application/pdf",
   "text": "4.13 The interviewer shall make a note in their pocket book that the interview has taken place\nand that it was audibly recorded, time it commenced, its duration and date and the\nidentification number, filename or other reference for the recording (see Note 3I).\n\n4.14 If no proceedings follow in respect of the person whose interview was recorded, the\n(I) Security of secure digital network interview records\n\n4.15 The recordings are first saved locally on the device before being transferred to the remote\nnetwork file server system (see\nparagraph 1.6(a)(iii)). The recording remains on the local\ndevice until the transfer is complete. If for any reason the network connection fails, the\nrecording will be transferred when the network connection is restored (see\nparagraph\n4.12(d)). The interview record files are stored in read only form on non- removable storage\ndevices, for example, hard disk drives, to ensure their integrity.",
   "source_org": "gov_uk",

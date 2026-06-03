@@ -3,7 +3,7 @@
   "title": "data.pdf — section 127",
   "url": "https://www.legislation.gov.uk/ukpga/2016/2/data.pdf",
   "jurisdiction": "uk_wide",
-  "retrieved_at": "2026-02-03T12:56:28Z",
+  "retrieved_at": "2026-06-03T13:11:41Z",
   "content_type": "application/pdf",
   "text": "(3) Sub-paragraph (2) does not apply if the information is stored for longer than is\nreasonably necessary for the transmission.\nCommencement Information\nI92 Sch. 4 para. 3 in force at 26.5.2016 by S.I. 2016/553, reg. 2\nException for caching\n\n4 (1) A service provider does not commit an offence under section 5(2) by storing\ninformation provided by a recipient of the service for transmission in a\ncommunication network if the first and second conditions are met.\n\n(2) The first condition is that the storage of the information—\n(a) is automatic, intermediate and temporary, and\n(b) is solely for the purpose of making more efficient the onward transmission\nof the information to other recipients of the service at their request.\n\n(3) The second condition is that the service provider—\n(a) does not modify the information,\n(b) complies with any conditions attached to having access to the information,\nand\n(c) if sub-paragraph (4) applies, promptly removes the information or disables\naccess to it.",
   "source_org": "legislation_gov_uk",
