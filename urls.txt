@@ -1,0 +1,199 @@
+# Format: <jurisdiction>\t<url>
+england_wales https://www.gov.uk/arrested-your-rights/your-rights-in-custody
+england_wales https://www.gov.uk/arrested-your-rights/how-long-you-can-be-held-in-custody
+
+# Cleaner PACE s.58
+england_wales https://www.legislation.gov.uk/ukpga/1984/60/section/58/data.html
+
+# Rights notice + Code C (E&W)
+england_wales https://www.gov.uk/government/publications/notice-of-rights-and-entitlements-english-pace-code-i/notice-of-rights-and-entitlements-english-pace-code-i-accessible
+england_wales https://assets.publishing.service.gov.uk/media/6580543083ba38000de1b792/PACE%2BCode%2BC%2B2023.pdf
+england_wales https://www.gov.uk/guidance/police-and-criminal-evidence-act-1984-pace-codes-of-practice
+england_wales https://assets.publishing.service.gov.uk/media/68d4efea30734bac9ba0fc8a/PACE%2BCode%2BA%2B2023.pdf
+
+# Northern Ireland – index + statutory + Code C PDF
+northern_ireland https://www.justice-ni.gov.uk/articles/pace-codes-practice
+northern_ireland https://www.legislation.gov.uk/nisi/1989/1341/article/59?view=plain
+northern_ireland https://www.justice-ni.gov.uk/sites/default/files/publications/doj/16-06-pace-code-c-2015.pdf
+
+# Scotland – overview + legal advice
+scotland https://www.mygov.scot/arrested/when-youre-arrested
+scotland https://www.mygov.scot/arrested/legal-advice-at-police-station
+
+# --- Drug offences: core legislation / guidance / sentencing ---
+
+uk_wide https://www.legislation.gov.uk/ukpga/1971/38/contents
+uk_wide https://www.legislation.gov.uk/ukpga/1971/38/section/4
+uk_wide https://www.legislation.gov.uk/ukpga/1971/38/section/5
+
+uk_wide https://www.legislation.gov.uk/uksi/2001/3998/contents
+uk_wide https://www.legislation.gov.uk/uksi/2001/3998/pdfs/uksi_20013998_en.pdf
+
+uk_wide https://www.legislation.gov.uk/ukpga/2016/2/contents
+uk_wide https://www.legislation.gov.uk/ukpga/2016/2/pdfs/ukpga_20160002_en.pdf
+
+uk_wide https://www.legislation.gov.uk/uksi/2024/190/contents/made
+uk_wide https://www.gov.uk/government/publications/circular-0012024-control-of-20-new-drugs/0012024-the-misuse-of-drugs-act-1971-amendment-order-2024-and-the-misuse-of-drugs-and-misuse-of-drugs-designation-england-and-wales-and-scotlan
+
+# England & Wales: sentencing + prosecution guidance
+england_wales https://sentencingcouncil.org.uk/resources/common-offences/drug-offences/
+england_wales https://sentencingcouncil.org.uk/guidelines/supplying-or-offering-to-supply-a-controlled-drug-possession-of-a-controlled-drug-with-intent-to-supply-it-to-another/
+england_wales https://sentencingcouncil.org.uk/media/edmbwuhe/drug_offences_definitive_guideline_final_web1.pdf
+england_wales https://www.cps.gov.uk/prosecution-guidance/drug-offences
+
+# Northern Ireland: sentencing guideline PDFs hub for drugs
+northern_ireland https://www.judiciaryni.uk/sentencing-guidelines-magistrates-court-drug-offences
+
+# Scotland: stop/search (often used in drug encounters)
+scotland https://www.gov.scot/binaries/content/documents/govscot/publications/advice-and-guidance/2017/05/guide-stop-search-scotland/documents/00517807-pdf/00517807-pdf/govscot%3Adocument/00517807.pdf
+scotland https://www.legislation.gov.uk/ssi/2017/72/pdfs/ssicop_20170072_en.pdf
+
+
+# ==============================
+# SENTENCING GUIDELINES + PROCEDURE (UK)
+# Works with current ingest_sources (HTML/PDF)
+# ==============================
+
+# ---------
+# ENGLAND & WALES — Sentencing Council (Overarching)
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/imposition-of-community-and-custodial-sentences/
+england_wales https://sentencingcouncil.org.uk/media/ruojqlel/definitive-guideline-imposition-of-ccs-final-web.pdf
+england_wales https://sentencingcouncil.org.uk/guidelines/reduction-in-sentence-for-a-guilty-plea-first-hearing-on-or-after-1-june-2017/
+england_wales https://sentencingcouncil.org.uk/media/uqqgmklh/reduction-in-sentence-for-guilty-plea-definitive-guide_final_web.pdf
+england_wales https://sentencingcouncil.org.uk/guidelines/crown-court/
+
+# ---------
+# ENGLAND & WALES — Sentencing Council (Common offence-specific guidelines)
+# (Picked for typical triage topics: violence, burglary/theft, drugs, weapons, sexual offences)
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/assault-occasioning-actual-bodily-harm-racially-or-religiously-aggravated-abh/
+england_wales https://sentencingcouncil.org.uk/guidelines/causing-grievous-bodily-harm-with-intent-to-do-grievous-bodily-harm-wounding-with-intent-to-do-gbh/
+england_wales https://sentencingcouncil.org.uk/guidelines/inflicting-grievous-bodily-harm-unlawful-wounding-racially-or-religiously-aggravated-gbh-unlawful-wounding/
+england_wales https://sentencingcouncil.org.uk/guidelines/domestic-burglary/
+england_wales https://sentencingcouncil.org.uk/guidelines/theft-from-a-shop-or-stall/
+england_wales https://sentencingcouncil.org.uk/guidelines/supplying-or-offering-to-supply-a-controlled-drug-possession-of-a-controlled-drug-with-intent-to-supply-it-to-another/
+england_wales https://sentencingcouncil.org.uk/guidelines/bladed-articles-and-offensive-weapons-having-in-a-public-place/
+england_wales https://sentencingcouncil.org.uk/guidelines/bladed-articles-and-offensive-weapons-threats/
+england_wales https://sentencingcouncil.org.uk/guidelines/sexual-assault/
+england_wales https://sentencingcouncil.org.uk/guidelines/sexual-assault-of-a-child-under-13/
+england_wales https://sentencingcouncil.org.uk/media/ehzedc3n/aug-2015-sexual-offences-definitive-guideline-web.pdf
+england_wales https://sentencingcouncil.org.uk/media/tv4f4qjn/sc-theft-offences-definitive-guideline-content_final-web_.pdf
+england_wales https://sentencingcouncil.org.uk/media/uxgh2jeh/robbery-offences-definitive-guideline-web.pdf
+england_wales https://sentencingcouncil.org.uk/media/rvajp3bh/bladed-article-definitive-guideline_web-1.pdf
+
+# ---------
+# ENGLAND & WALES — Investigation procedures (APP / PACE / Disclosure)
+# ---------
+england_wales https://www.college.police.uk/app/investigation/investigation-process
+england_wales https://assets.college.police.uk/s3fs-public/2022-12/Investigation%20process.pdf
+
+# PACE Codes hub (links to current A–H/I etc; your ingester may discover PDFs from here too)
+england_wales https://www.gov.uk/guidance/police-and-criminal-evidence-act-1984-pace-codes-of-practice
+# Direct PDFs (useful even if the hub layout changes)
+england_wales https://assets.publishing.service.gov.uk/media/68d4efea30734bac9ba0fc8a/PACE%2BCode%2BA%2B2023.pdf
+england_wales https://assets.publishing.service.gov.uk/media/65804a3a83ba380013e1b769/PACE%2BCode%2BB%2B2023.pdf
+england_wales https://assets.publishing.service.gov.uk/media/65816ec7fc07f300128d4433/PACE%2BCode%2BD%2B2023.pdf
+england_wales https://www.gov.uk/government/publications/pace-codes-e-and-f-2018
+england_wales https://assets.publishing.service.gov.uk/media/5a7b2feb40f0b66a2fc05bff/pace-code-e.pdf
+
+# Disclosure framework (high-value for “investigation procedure” + evidence handling)
+england_wales https://www.gov.uk/government/publications/attorney-generals-guidelines-on-disclosure
+england_wales https://assets.publishing.service.gov.uk/media/65e1ab9d2f2b3b00117cd803/Attorney_General_s_Guidelines_on_Disclosure_-_2024.pdf
+england_wales https://www.gov.uk/government/publications/criminal-procedure-and-investigations-act-code-of-practice
+england_wales https://assets.publishing.service.gov.uk/media/5f9af5e6d3bf7f1e3a29321b/Criminal-procedure-and-investigations-act-1996.pdf
+england_wales https://www.legislation.gov.uk/id/ukpga/1996/25
+
+# CPS “how the system works” (useful procedural explanations for public users)
+england_wales https://www.cps.gov.uk/about-cps/how-a-criminal-case-works
+england_wales https://www.cps.gov.uk/publication/code-crown-prosecutors
+england_wales https://www.cps.gov.uk/prosecution-guidance/disclosure-manual-chapter-1-introduction
+
+# ---------
+# SCOTLAND — Sentencing (Scottish Sentencing Council)
+# ---------
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/approved-guidelines/
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/guidelines-in-development/the-sentencing-process/
+scotland https://www.scottishsentencingcouncil.org.uk/media/jtbhlsre/the-sentencing-process-guideline-d.pdf
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/about-sentencing-guidelines/
+
+# ---------
+# NORTHERN IRELAND — Sentencing guidance (Judiciary NI)
+# (NI doesn’t mirror the Sentencing Council system; these are the most direct public sources)
+# ---------
+northern_ireland https://www.judiciaryni.uk/sentencing-guidelines-northern-ireland
+northern_ireland https://www.judiciaryni.uk/sentencing-guidelines-magistrates-court
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines
+northern_ireland https://www.judiciaryni.uk/files/judiciaryni/media-files/NTRODUCTION%20AND%20GENERAL%20PRINCIPLES.pdf
+
+# ==============================
+# SECOND-TIER OFFENCE GUIDELINES (High-frequency public triage)
+# ==============================
+
+# ---------
+# ENGLAND & WALES — Violence / Public Order / Harassment
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/common-assault/
+england_wales https://sentencingcouncil.org.uk/guidelines/harassment-stalking/
+england_wales https://sentencingcouncil.org.uk/guidelines/controlling-or-coercive-behaviour/
+england_wales https://sentencingcouncil.org.uk/guidelines/affray/
+england_wales https://sentencingcouncil.org.uk/guidelines/violent-disorder/
+
+# ---------
+# ENGLAND & WALES — Criminal Damage / Arson
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/criminal-damage-other-than-arson/
+england_wales https://sentencingcouncil.org.uk/guidelines/arson/
+
+# ---------
+# ENGLAND & WALES — Fraud / Deception / Financial
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/fraud/
+england_wales https://sentencingcouncil.org.uk/guidelines/fraud-by-false-representation/
+england_wales https://sentencingcouncil.org.uk/guidelines/fraud-by-failing-to-disclose-information/
+england_wales https://sentencingcouncil.org.uk/guidelines/fraud-by-abuse-of-position/
+england_wales https://sentencingcouncil.org.uk/guidelines/money-laundering/
+england_wales https://sentencingcouncil.org.uk/media/1l4b4j2o/fraud-definitive-guideline-content_final-web.pdf
+
+# ---------
+# ENGLAND & WALES — Drugs (possession-focused + lower-level supply queries)
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/possession-of-a-controlled-drug/
+england_wales https://sentencingcouncil.org.uk/guidelines/possession-with-intent-to-supply-a-controlled-drug/
+england_wales https://sentencingcouncil.org.uk/media/5c0e5l0y/drug-offences-definitive-guideline-content_final-web.pdf
+
+# ---------
+# ENGLAND & WALES — Motoring (very common public questions)
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/causing-death-by-driving/
+england_wales https://sentencingcouncil.org.uk/guidelines/dangerous-driving/
+england_wales https://sentencingcouncil.org.uk/guidelines/careless-driving/
+england_wales https://sentencingcouncil.org.uk/guidelines/drink-driving/
+england_wales https://sentencingcouncil.org.uk/guidelines/driving-without-insurance/
+england_wales https://sentencingcouncil.org.uk/media/4v1m5f3o/motoring-offences-definitive-guideline-web.pdf
+
+# ---------
+# ENGLAND & WALES — Sexual offences (additional to tier-1)
+# ---------
+england_wales https://sentencingcouncil.org.uk/guidelines/exposure/
+england_wales https://sentencingcouncil.org.uk/guidelines/sexual-activity-in-a-public-lavatory/
+england_wales https://sentencingcouncil.org.uk/guidelines/possession-of-indecent-photographs-of-children/
+
+# ---------
+# SCOTLAND — Additional sentencing guidance (public-facing)
+# ---------
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/assault/
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/drugs-offences/
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/sexual-offences/
+scotland https://www.scottishsentencingcouncil.org.uk/sentencing-guidelines/fiscal-fines/
+
+# ---------
+# NORTHERN IRELAND — Offence-level guidance (Magistrates’ Court focus)
+# ---------
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines-offences-against-the-person
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines-theft-and-deception
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines-criminal-damage
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines-drugs
+northern_ireland https://www.judiciaryni.uk/magistrates-courts-sentencing-guidelines-road-traffic-offences
+

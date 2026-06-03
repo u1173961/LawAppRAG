@@ -1,0 +1,12 @@
+{
+  "id": "e9429556e53d",
+  "title": "ukpga_20160002_en.pdf — section 105",
+  "url": "https://www.legislation.gov.uk/ukpga/2016/2/pdfs/ukpga_20160002_en.pdf",
+  "jurisdiction": "uk_wide",
+  "retrieved_at": "2026-02-03T12:54:44Z",
+  "content_type": "application/pdf",
+  "text": "4 (1) A service provider does not commit an offence under section 5(2) by storing\ninformation provided by a recipient of the service for transmission in a\ncommunication network if the first and second conditions are met.\n\n(2) The first condition is that the storage of the information—\n(a) is automatic, intermediate and temporary, and\n(b) is solely for the purpose of making more efficient the onward\ntransmission of the information to other recipients of the service at\ntheir request.\n\n(3) The second condition is that the service provider—\n(a) does not modify the information,\n(b) complies with any conditions at tached to having access to the\ninformation, and\n(c) if sub-paragraph (4) applies, pr omptly removes the information or\ndisables access to it.\n\n(4) This sub-paragraph applies if the service provider obtains actual knowledge\nthat—\n(a) the information at the initial so urce of the transmission has been\nremoved from the network,\n(b) access to it has been disabled, or\n(c) a court or administrative authority has ordered the removal from the\nnetwork of, or the disablement of access to, the information.\nException for hosting",
+  "source_org": "legislation_gov_uk",
+  "topic": "ukpga_20160002_en",
+  "chunk_index": 104
+}

@@ -1,0 +1,32 @@
+[
+  {
+    "title": "GOV.UK — Your rights in custody (Being arrested: your rights)",
+    "url": "https://www.gov.uk/arrested-your-rights/your-rights-in-custody",
+    "jurisdiction": "england_wales",
+    "text": "Your rights in custody: The custody officer at the police station must explain your rights. You have the right to: get free legal advice; tell someone where you are; have medical help if you’re feeling ill; see the rules the police must follow (‘Codes of Practice’); see a written notice telling you about your rights (for example breaks for food and to use the toilet) — you can ask for a notice in your language or an interpreter to explain it. Under 18s: you should not be put in a cell unless there is nowhere else safe and comfortable; you must never be put in a cell with an adult. Rights when being questioned: police may question you about the suspected crime and it will be recorded; you do not have to answer questions but there could be consequences if you do not; police must explain this by reading the police caution."
+  },
+  {
+    "title": "GOV.UK — How long you can be held in custody (Being arrested: your rights)",
+    "url": "https://www.gov.uk/arrested-your-rights/how-long-you-can-be-held-in-custody",
+    "jurisdiction": "england_wales",
+    "text": "How long you can be held in custody: Police can hold you for up to 24 hours before they have to charge you with a crime or release you. They can apply to hold you for up to 36 or 96 hours if you’re suspected of a serious crime. You can be held without charge for up to 14 days if arrested under the Terrorism Act. Release on bail: police can release you on police bail if there’s not enough evidence to charge; you do not have to pay, but you’ll have to return when asked. Conditional bail: if charged and police think you may commit another offence, fail to attend court, intimidate witnesses, or obstruct justice; conditions can restrict freedom (example: curfew). Released under investigation: if not charged, police might release you under investigation; you are free to go home with no rules, but police continue investigating and could arrest/charge you later."
+  },
+  {
+    "title": "Police and Criminal Evidence Act 1984 — Section 58 (Access to legal advice)",
+    "url": "https://www.legislation.gov.uk/ukpga/1984/60/section/58/2018-03-01/data.html",
+    "jurisdiction": "england_wales",
+    "text": "PACE s58 Access to legal advice: A person arrested and held in custody in a police station or other premises is entitled, if they request, to consult a solicitor privately at any time. The request and time must be recorded in the custody record (with limited exceptions). If a person requests, they must be permitted to consult a solicitor as soon as practicable, except to the extent that delay is permitted by the section. In any case they must be permitted to consult within 36 hours from the relevant time (as defined in s41(2)). Delay is only permitted in limited circumstances (e.g., for indictable offences) and requires authorisation by an officer of at least superintendent rank, with conditions and recording requirements."
+  },
+  {
+    "title": "Northern Ireland Department of Justice — PACE Codes of Practice (index)",
+    "url": "https://www.justice-ni.gov.uk/articles/pace-codes-practice",
+    "jurisdiction": "northern_ireland",
+    "text": "NI PACE Codes of Practice: The Department of Justice has brought into operation revised Codes of Practice under the Police and Criminal Evidence (Northern Ireland) Order 1989 (PACE). Codes listed include: Code A (stop and search), Code B (searches of premises and seizure), Code C (detention, treatment and questioning), Code D (identification), Code E (audio recording of interviews), Code F (visual recording of interviews), Code G (power of arrest), Code H (national security detention)."
+  },
+  {
+    "title": "The National Archives — Re-use Find Case Law records (Open Justice Licence summary + key restriction)",
+    "url": "https://caselaw.nationalarchives.gov.uk/re-use-find-case-law-records",
+    "jurisdiction": "england_wales",
+    "text": "Re-use Find Case Law records: The repository of judgments and decisions can be freely accessed and re-used under the Open Justice Licence. The licence permits copying, publishing, distributing and transmitting case law data, including commercial use, subject to conditions (including respecting judicial decisions restricting personal data and removing documents that are later withdrawn or replaced). Important: the page states the Open Justice licence does not permit computational analysis; if you intend to do programmatic searching in bulk across Find Case Law records to identify, extract or enrich content, you need to apply to perform computational analysis (no application charges). The site also references an API and structured formats (e.g., XML/LegalDocML)."
+  }
+]
